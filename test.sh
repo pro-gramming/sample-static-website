@@ -1,0 +1,147 @@
+{
+docker pull nginx:latest 
+mkdir mywebsite
+pushd mywebsite
+#cd mywebsite
+touch index.html
+cat <<"EOF" > index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My E-Commerce Website</title>
+  <style>
+    /* Add some basic styling */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background-color: #eee;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    nav li {
+      display: inline-block;
+    }
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px;
+      display: block;
+    }
+    nav a:hover {
+      background-color: #ccc;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      margin-top: 20px;
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .product img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product h3 {
+      margin: 10px 0;
+      font-size: 24px;
+      text-align: center;
+    }
+    .product p {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .product button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .product button:hover {
+      background-color: #555;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My E-Commerce Website</h1>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="product1.jpg" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>$50</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="product2.jpg" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>$40</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="product3.jpg" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>$30</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>Copyright 2021 My E-Commerce Website</p>
+  </footer>
+</body>
+</html>
+EOF
+popd
+
+docker run --rm --name some-nginx -v /root/mywebsite:/usr/share/nginx/html:ro -p 8080:80 -d nginx 
+}
